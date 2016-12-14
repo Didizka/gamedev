@@ -30,6 +30,11 @@ namespace MonoGame
         private Sprite testSprite;
         private ArrayList tiles;
 
+        // Game Board
+        private int columns;
+        private int rows;
+        private Board board;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -50,8 +55,10 @@ namespace MonoGame
             hero.CharacterTexture = Content.Load<Texture2D>("hero");
             tiles = new ArrayList();
             heroMoveSpeed = 10.0f;
-            graphics.PreferredBackBufferHeight = 600;
-            graphics.PreferredBackBufferWidth = 800;
+            rows = 10;
+            columns = 15;
+            graphics.PreferredBackBufferHeight = rows * 50;
+            graphics.PreferredBackBufferWidth = columns * 50;
             graphics.ApplyChanges();
             base.Initialize();
         }
@@ -74,6 +81,7 @@ namespace MonoGame
             }
 
             testSprite = new Sprite(_tileTexture, new Vector2(250, 250), spriteBatch);
+            board = new Board(spriteBatch, _tileTexture, columns, rows);
         }
 
         /// <summary>
@@ -120,14 +128,17 @@ namespace MonoGame
             // All of the drawing starts here
             spriteBatch.Begin();
 
+
+            //foreach (sprite tile in tiles)
+            //{
+            //    tile.draw();
+            //}
+            //testsprite.draw();
+            board.Draw();
+
+
             // Character rendering
             hero.Draw(spriteBatch);
-            //testSprite.Draw();
-            foreach (Sprite tile in tiles)
-            {
-                tile.Draw();
-            }
-            testSprite.Draw();
 
             // Render all sprites to the screen
             spriteBatch.End();

@@ -17,7 +17,7 @@ namespace MonoGame
             SpriteBatch = batch;
         }
 
-        public void Draw()
+        public virtual void Draw()
         {
             SpriteBatch.Draw(Texture, Position, Color.White);
         }
