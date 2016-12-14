@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>C:/Users/Chingiz.CHINGIZ/OneDrive/FutuRe/2EA/Game Development/Projecten/MonoGame/MonoGame/Content/charactersheet.png</SourceFile>
-  <SourceTime>2016-11-16T15:16:44.2185564+01:00</SourceTime>
+  <SourceTime>2016-12-14T06:24:50.6791431+01:00</SourceTime>
   <DestFile>C:/Users/Chingiz.CHINGIZ/OneDrive/FutuRe/2EA/Game Development/Projecten/MonoGame/MonoGame/Content/bin/Windows/charactersheet.xnb</DestFile>
-  <DestTime>2016-11-16T15:16:47.372296+01:00</DestTime>
+  <DestTime>2016-12-14T06:27:53.9278998+01:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2016-03-30T08:36:08+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

@@ -87,7 +87,7 @@ namespace MonoGame
                 //{
                 //    position.X = 0;
                 //}
-
+                hero.Update(gameTime);
                 base.Update(gameTime);
             }
         }
@@ -98,25 +98,16 @@ namespace MonoGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            // Clear the screen
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
-            //spriteBatch.Begin();
-            //spriteBatch.Draw(texture,
-            //    destinationRectangle: new Rectangle(100 + 50, 100 + 50, 200, 200)
-            //    //,
-            //    // Rotate from the center of the texture
-            //    // origin: new Vector2(texture.Width/2, texture.Height/2), 
-            //    // Rotate
-            //    // rotation: 45f
-            //    // Tint
-            //    // color: Color.Green
-            //    // Flipped
-            //    // effects: SpriteEffects.FlipHorizontally|SpriteEffects.FlipVertically
-            //    );
-            //spriteBatch.End();
+            // All of the drawing starts here
             spriteBatch.Begin();
+
+            // Character rendering
             hero.Draw(spriteBatch);
+
+            // Render all sprites to the screen
             spriteBatch.End();
 
             base.Draw(gameTime);

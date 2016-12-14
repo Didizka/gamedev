@@ -10,6 +10,8 @@ namespace MonoGame
         // Using a static field allows us to share the same Texture2D across all CharacterEntity instances
         // This arrangement of multiple images in one file is referred to as a sprite sheet. Typically, a sprite will render only a portion of the sprite sheet. 
         static Texture2D characterSheetTexture;
+        Animation walkDown;
+        Animation currentAnimation;
 
         public float X { get; set; }
         public float Y { get; set; }
@@ -24,13 +26,26 @@ namespace MonoGame
                     characterSheetTexture = Texture2D.FromStream(graphicsDevice, stream);
                 }
             }
+
+            walkDown = new Animation();
+            walkDown.AddFrame(new Rectangle(0, 0, 16, 16), TimeSpan.FromSeconds(.25));
+            walkDown.AddFrame(new Rectangle(16, 0, 16, 16), TimeSpan.FromSeconds(.25));
+            walkDown.AddFrame(new Rectangle(0, 0, 16, 16), TimeSpan.FromSeconds(.25));
+            walkDown.AddFrame(new Rectangle(32, 0, 16, 16), TimeSpan.FromSeconds(.25));
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             Vector2 topLeftOfSprite = new Vector2(this.X, this.Y);
             Color tintColor = Color.White;
-            spriteBatch.Draw(characterSheetTexture, topLeftOfSprite, tintColor);
+            var sourceRectangle = currentAnimation.CurrentRectangle;
+            spriteBatch.Draw(characterSheetTexture, topLeftOfSprite, sourceRectangle, tintColor);
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            currentAnimation = walkDown;
+            currentAnimation.Update(gameTime);
         }
     }
 }
