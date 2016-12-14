@@ -37,8 +37,8 @@ namespace MonoGame
             Position = position;
             Active = true;
             HP = 100;
-            Width = 60;
-            Height = 60;
+            Width = 30;
+            Height = 30;
 
         }
 

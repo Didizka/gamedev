@@ -16,17 +16,16 @@ namespace MonoGame
         private SpriteBatch spriteBatch;
 
         // Hero
-        private Character hero;
+        private Hero hero;
+        private Texture2D heroTexture;
 
         // Keyboard states used to determine key presses
         private KeyboardState currentKeyBoardState;
         private KeyboardState previousKeyBoardState;
-
-        // Hero's movement speed
-        private float heroMoveSpeed;
+        
 
         // Tiles
-        private Texture2D _tileTexture;
+        private Texture2D tileTexture;
         private Sprite testSprite;
         private ArrayList tiles;
 
@@ -51,10 +50,7 @@ namespace MonoGame
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            hero = new Character();
-            hero.CharacterTexture = Content.Load<Texture2D>("hero");
             tiles = new ArrayList();
-            heroMoveSpeed = 10.0f;
             rows = 10;
             columns = 15;
             graphics.PreferredBackBufferHeight = rows * 50;
@@ -72,16 +68,19 @@ namespace MonoGame
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Vector2 heroPosition = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y + GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
-            hero.Initialize(this.GraphicsDevice, heroPosition);
-            _tileTexture = Content.Load<Texture2D>("blok");
+            tileTexture = Content.Load<Texture2D>("blok");
 
             for (int i = 0; i < GraphicsDevice.Viewport.Width / 50; i++)
             {
-                tiles.Add(new Sprite(_tileTexture, new Vector2(i * 50, GraphicsDevice.Viewport.TitleSafeArea.Height - 50), spriteBatch));
+                tiles.Add(new Sprite(tileTexture, new Vector2(i * 50, GraphicsDevice.Viewport.TitleSafeArea.Height - 50), spriteBatch));
             }
 
-            testSprite = new Sprite(_tileTexture, new Vector2(250, 250), spriteBatch);
-            board = new Board(spriteBatch, _tileTexture, columns, rows);
+            testSprite = new Sprite(tileTexture, new Vector2(250, 250), spriteBatch);
+            board = new Board(spriteBatch, tileTexture, columns, rows);
+
+
+            heroTexture = Content.Load<Texture2D>("hero");
+            hero = new Hero(heroTexture, new Vector2(50, 50), spriteBatch);
         }
 
         /// <summary>
@@ -110,8 +109,7 @@ namespace MonoGame
                 previousKeyBoardState = currentKeyBoardState;
                 currentKeyBoardState = Keyboard.GetState();
 
-
-                heroUpdate(gameTime);
+                hero.Update(gameTime);
                 base.Update(gameTime);
             }
         }
@@ -138,7 +136,7 @@ namespace MonoGame
 
 
             // Character rendering
-            hero.Draw(spriteBatch);
+            hero.Draw();
 
             // Render all sprites to the screen
             spriteBatch.End();
@@ -162,27 +160,6 @@ namespace MonoGame
             base.OnDeactivated(sender, args);
         }
 
-        private void heroUpdate(GameTime gameTime)
-        {
-            // Use the keyboard
-            if (currentKeyBoardState.IsKeyDown(Keys.Left)) {
-                hero.Position.X -= heroMoveSpeed;
-            } else if (currentKeyBoardState.IsKeyDown(Keys.Right)) {
-                hero.Position.X += heroMoveSpeed;
-            } else if (currentKeyBoardState.IsKeyDown(Keys.Up))
-            {
-                hero.Position.Y -= heroMoveSpeed;
-            } else if (currentKeyBoardState.IsKeyDown(Keys.Down))
-            {
-                hero.Position.Y += heroMoveSpeed;
-            } else if (currentKeyBoardState.IsKeyDown(Keys.Space))
-            {
-                                
-            }
-
-            hero.Position.X = MathHelper.Clamp(hero.Position.X, 0, GraphicsDevice.Viewport.Width - hero.Width);
-            hero.Position.Y = MathHelper.Clamp(hero.Position.Y, 0, GraphicsDevice.Viewport.Height - hero.Height);
-
-        }
+        
     }
 }
