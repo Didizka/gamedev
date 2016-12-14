@@ -43,8 +43,10 @@
     <Compile Include="Character.cs" />
     <Compile Include="CodeExamples.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="Hero.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sprite.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
@@ -54,7 +56,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\blok.png" />
     <Content Include="Content\charactersheet.png" />
+    <Content Include="Content\hero.png" />
+    <Content Include="Content\mario.png" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Input.Touch;
 
 namespace MonoGame
 {
@@ -10,23 +12,29 @@ namespace MonoGame
     /// </summary>
     public class Game1 : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
-        Character hero;
+        private GraphicsDeviceManager graphics;
+        private SpriteBatch spriteBatch;
+
+        // Hero
+        private Character hero;
+
+        // Keyboard states used to determine key presses
+        private KeyboardState currentKeyBoardState;
+        private KeyboardState previousKeyBoardState;
+
+        // Hero's movement speed
+        private float heroMoveSpeed;
+
+        // Tiles
+        private Texture2D _tileTexture;
+        private Sprite testSprite;
+        private ArrayList tiles;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            IsMouseVisible = true;
             Content.RootDirectory = "Content";
-
-            // Disable default refresh rate of 59-60Hz
-            // this.IsFixedTimeStep = false;
-            // this.graphics.SynchronizeWithVerticalRetrace = false;
-
-            // Set different refresh rate
-            //this.IsFixedTimeStep = true;
-            //this.graphics.SynchronizeWithVerticalRetrace = true;
-            //this.TargetElapsedTime = new System.TimeSpan(0, 0, 0, 0, 33); // 33ms = 30fps
         }
 
         /// <summary>
@@ -38,7 +46,13 @@ namespace MonoGame
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            hero = new Character(this.GraphicsDevice);
+            hero = new Character();
+            hero.CharacterTexture = Content.Load<Texture2D>("hero");
+            tiles = new ArrayList();
+            heroMoveSpeed = 10.0f;
+            graphics.PreferredBackBufferHeight = 600;
+            graphics.PreferredBackBufferWidth = 800;
+            graphics.ApplyChanges();
             base.Initialize();
         }
 
@@ -50,10 +64,16 @@ namespace MonoGame
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            //texture = this.Content.Load<Texture2D>("charactersheet");
+            Vector2 heroPosition = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y + GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
+            hero.Initialize(this.GraphicsDevice, heroPosition);
+            _tileTexture = Content.Load<Texture2D>("blok");
 
-            // TODO: use this.Content to load your game content here
-           
+            for (int i = 0; i < GraphicsDevice.Viewport.Width / 50; i++)
+            {
+                tiles.Add(new Sprite(_tileTexture, new Vector2(i * 50, GraphicsDevice.Viewport.TitleSafeArea.Height - 50), spriteBatch));
+            }
+
+            testSprite = new Sprite(_tileTexture, new Vector2(250, 250), spriteBatch);
         }
 
         /// <summary>
@@ -79,15 +99,11 @@ namespace MonoGame
                 if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                     Exit();
 
-                // TODO: Add your update logic here
-                // Adjust moving speed to 200px per second using variable timestep
-                // position.X += 400.0f  * (float) gameTime.ElapsedGameTime.TotalSeconds;
-                //position.X += 1;
-                //if (position.X > this.GraphicsDevice.Viewport.Width - 100)
-                //{
-                //    position.X = 0;
-                //}
-                hero.Update(gameTime);
+                previousKeyBoardState = currentKeyBoardState;
+                currentKeyBoardState = Keyboard.GetState();
+
+
+                heroUpdate(gameTime);
                 base.Update(gameTime);
             }
         }
@@ -99,18 +115,23 @@ namespace MonoGame
         protected override void Draw(GameTime gameTime)
         {
             // Clear the screen
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.LightSkyBlue);
 
             // All of the drawing starts here
             spriteBatch.Begin();
 
             // Character rendering
             hero.Draw(spriteBatch);
+            //testSprite.Draw();
+            foreach (Sprite tile in tiles)
+            {
+                tile.Draw();
+            }
+            testSprite.Draw();
 
             // Render all sprites to the screen
             spriteBatch.End();
-
-            base.Draw(gameTime);
+            
         }
 
         /// <summary>
@@ -128,6 +149,29 @@ namespace MonoGame
         {
             this.Window.Title = "Game Paused";
             base.OnDeactivated(sender, args);
+        }
+
+        private void heroUpdate(GameTime gameTime)
+        {
+            // Use the keyboard
+            if (currentKeyBoardState.IsKeyDown(Keys.Left)) {
+                hero.Position.X -= heroMoveSpeed;
+            } else if (currentKeyBoardState.IsKeyDown(Keys.Right)) {
+                hero.Position.X += heroMoveSpeed;
+            } else if (currentKeyBoardState.IsKeyDown(Keys.Up))
+            {
+                hero.Position.Y -= heroMoveSpeed;
+            } else if (currentKeyBoardState.IsKeyDown(Keys.Down))
+            {
+                hero.Position.Y += heroMoveSpeed;
+            } else if (currentKeyBoardState.IsKeyDown(Keys.Space))
+            {
+                                
+            }
+
+            hero.Position.X = MathHelper.Clamp(hero.Position.X, 0, GraphicsDevice.Viewport.Width - hero.Width);
+            hero.Position.Y = MathHelper.Clamp(hero.Position.Y, 0, GraphicsDevice.Viewport.Height - hero.Height);
+
         }
     }
 }

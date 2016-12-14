@@ -24,3 +24,6 @@ C:\Users\Chingiz.CHINGIZ\OneDrive\FutuRe\2EA\Game Development\Projecten\MonoGame
 C:\Users\Chingiz.CHINGIZ\OneDrive\FutuRe\2EA\Game Development\Projecten\MonoGame\MonoGame\obj\x86\Debug\MonoGame.exe
 C:\Users\Chingiz.CHINGIZ\OneDrive\FutuRe\2EA\Game Development\Projecten\MonoGame\MonoGame\obj\x86\Debug\MonoGame.pdb
 C:\Users\Chingiz.CHINGIZ\OneDrive\FutuRe\2EA\Game Development\Projecten\MonoGame\MonoGame\bin\Windows\x86\Debug\Content\charactersheet.xnb
+C:\Users\Chingiz.CHINGIZ\OneDrive\FutuRe\2EA\Game Development\Projecten\MonoGame\MonoGame\bin\Windows\x86\Debug\Content\mario.xnb
+C:\Users\Chingiz.CHINGIZ\OneDrive\FutuRe\2EA\Game Development\Projecten\MonoGame\MonoGame\bin\Windows\x86\Debug\Content\blok.xnb
+C:\Users\Chingiz.CHINGIZ\OneDrive\FutuRe\2EA\Game Development\Projecten\MonoGame\MonoGame\bin\Windows\x86\Debug\Content\hero.xnb

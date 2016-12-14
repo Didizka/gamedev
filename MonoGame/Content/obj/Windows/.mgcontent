@@ -5,5 +5,8 @@
   <Config />
   <SourceFiles>
     <File>C:/Users/Chingiz.CHINGIZ/OneDrive/FutuRe/2EA/Game Development/Projecten/MonoGame/MonoGame/Content/charactersheet.png</File>
+    <File>C:/Users/Chingiz.CHINGIZ/OneDrive/FutuRe/2EA/Game Development/Projecten/MonoGame/MonoGame/Content/mario.png</File>
+    <File>C:/Users/Chingiz.CHINGIZ/OneDrive/FutuRe/2EA/Game Development/Projecten/MonoGame/MonoGame/Content/blok.png</File>
+    <File>C:/Users/Chingiz.CHINGIZ/OneDrive/FutuRe/2EA/Game Development/Projecten/MonoGame/MonoGame/Content/hero.png</File>
   </SourceFiles>
 </SourceFileCollection>
